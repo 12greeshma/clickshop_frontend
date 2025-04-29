@@ -1,0 +1,82 @@
+<header>
+  <a routerLink="/customer/dashboard" >
+    <div class="logo">ClickShop</div>
+   </a>
+
+  <div class="nav-links">
+  </div>
+  <div class="user-welcome-header">
+    <div class="user-avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="user-info">
+      <p>Welcome, {{ name }}</p>
+
+    </div>
+  </div>
+
+
+  <div class="right-actions">
+    <a class="nav-item" (click)="goToOrders()" style="cursor: pointer;">📋 Orders</a>
+    <a class="nav-item" (click)="goToCart()" style="cursor: pointer;">🛒 Cart ({{ cartItems.length }})</a>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+      
+    </div>
+
+    <div class="sidebar-menu">
+      <a routerLink="/customer/dashboard" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Orders</span>
+      </a>
+      <button (click)="toDashboard()"><span>Dashboard</span></button>
+
+     
+
+    </div>
+  </div>
+
+  <div class="orders-container">
+    <!-- <div class="orders-heading">
+      <h2>📦 My Orders</h2>
+    </div> -->
+
+    <div *ngIf="orders.length === 0">
+      <p>No orders placed yet.</p>
+    </div>
+
+    <div *ngFor="let order of orders" class="order-card">
+      <h3>Order #{{ order.id }}</h3>
+      <p><strong>Date:</strong> {{ order.orderDate | date }}</p>
+      <p><strong>Total Amount:</strong> ₹{{ order.totalAmount }}</p>
+      <!-- Add more fields if needed -->
+    </div>
+
+  </div>
+
+  </div>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <strong>ClickShop</strong> - Your one-stop shopping destination
+        </div>
+        <div class="footer-links">
+          
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 ClickShop. All rights reserved.
+      </div>
+
+    </footer>

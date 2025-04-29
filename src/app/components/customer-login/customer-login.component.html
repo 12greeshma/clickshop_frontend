@@ -1,0 +1,18 @@
+<div class="customer-login-container" style="background-image: url('customer2.jpg'); background-size: contain; background-repeat: no-repeat; background-position: 80%center;">
+  <div class="brand-logo">
+    <img src="clickshoplogo.jpg" alt="ClickShop">
+  </div>
+  
+  <h2>Customer Login</h2>
+  <form (ngSubmit)="login()">
+    <input [(ngModel)]="email" name="email" placeholder="Email" required />
+    <input [(ngModel)]="password" name="password" placeholder="Password" type="password" required />
+    <button type="submit">Login</button>
+    <p style="color:red;" *ngIf="error">{{ error }}</p>
+  </form>
+  
+  <div class="register-link">
+    New to ClickShop? <a routerLink="/customer/register">Create an account</a>
+
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<header>
+  <a routerLink="/customer/dashboard" >
+    <div class="logo">ClickShop</div>
+   </a>
+  <div class="nav-links"></div>
+  <div class="user-welcome-header">
+    <div class="user-avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="user-info">
+      <p>Welcome, {{ name }}</p>
+    </div>
+  </div>
+  <div class="right-actions">
+    <a class="nav-item" (click)="goToOrders()" style="cursor: pointer;">📋 Orders</a>
+    <a class="nav-item" (click)="goToCart()" style="cursor: pointer;">🛒 Cart ({{ cartItems.length }})</a>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+    </div>
+    <div class="sidebar-menu">
+      <a routerLink="/customer/dashboard" class="menu-item">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/customer/cart" class="menu-item active">
+        <i class="fas fa-shopping-cart"></i>
+        <span>My Cart</span>
+      </a>
+      
+      
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="cart-main-content">
+    <div class="cart-heading">
+      <h1>Shopping Cart</h1>
+      <p *ngIf="cartItems.length > 0">{{ cartItems.length }} item(s) in your cart</p>
+    </div>
+
+    <div class="cart-empty" *ngIf="cartItems.length === 0">
+      <div class="empty-cart-icon">
+        <i class="fas fa-shopping-cart fa-5x"></i>
+      </div>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added anything to your cart yet.</p>
+      <button class="continue-shopping-btn" (click)="toDashboard()">Continue Shopping</button>
+    </div>
+
+    <div class="cart-content" *ngIf="cartItems.length > 0">
+      <div class="cart-items-container">
+        <div class="cart-header">
+          <div class="cart-col product-col">Product</div>
+          <div class="cart-col price-col">Price</div>
+          <div class="cart-col quantity-col">Quantity</div>
+          <div class="cart-col subtotal-col">Subtotal</div>
+          <div class="cart-col action-col">Action</div>
+        </div>
+
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <div class="cart-col product-col">
+            <div class="product-info">
+              <div class="product-image">
+                <img [src]="item.imageUrl" alt="{{ item.productName }}" class="product-image" />
+
+              </div>
+              <div class="product-details">
+                <h3>{{ item.productName }}</h3>
+                <p class="product-category" *ngIf="item.category">{{ item.category }}</p>
+                <p class="product-seller" *ngIf="item.seller">Sold by: {{ item.seller }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="cart-col price-col">
+            <p class="item-price">₹{{ item.price | number:'1.2-2' }}</p>
+          </div>
+          
+          <div class="cart-col quantity-col">
+            <div class="quantity-selector">
+              <button class="quantity-btn" (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">-</button>
+              <input type="number" [(ngModel)]="item.quantity" min="1" (change)="updateQuantity(item)">
+            
+              <button class="quantity-btn" (click)="increaseQuantity(item)">+</button>
+            </div>
+          </div>
+          
+          <div class="cart-col subtotal-col">
+            <p class="subtotal">₹{{ item.price * item.quantity | number:'1.2-2' }}</p>
+          </div>
+          
+          <div class="cart-col action-col">
+            <button class="remove-btn" (click)="removeItemFromCart(item.productId)">
+              ⨯<i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>₹{{ getSubtotal() | number:'1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>{{ getShipping() > 0 ? '₹' + (getShipping() | number:'1.2-2') : 'FREE' }}</span>
+        </div>
+        <div class="summary-row" *ngIf="getDiscount() > 0">
+          <span>Discount</span>
+          <span>-₹{{ getDiscount() | number:'1.2-2' }}</span>
+        </div>
+        <!-- <div class="summary-row tax-row">
+          <span>Tax (GST)</span>
+          <span>₹{{ getTax() | number:'1.2-2' }}</span>
+        </div> -->
+        <div class="summary-total">
+          <span>Total</span>
+          <span>₹{{ getTotal() | number:'1.2-2' }}</span>
+        </div>
+        
+        <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
+        <button class="continue-shopping" (click)="toDashboard()">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <strong>ClickShop</strong> - Your one-stop shopping destination
+    </div>
+    <div class="footer-links">
+     
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 ClickShop. All rights reserved.
+  </div>
+</footer>

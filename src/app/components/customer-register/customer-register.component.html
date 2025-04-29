@@ -1,0 +1,29 @@
+<div class="customer-register-container" style="background-image: url('reg1.jpg'); background-size: 520px auto; background-repeat: no-repeat; background-position: 80%center;">
+  <div class="brand-logo">
+    <img src="clickshoplogo.jpg" alt="ClickShop">
+  </div>
+  
+  <h2>Customer Register</h2>
+  <form (ngSubmit)="register()">
+    <input type="text" [(ngModel)]="customer.name" name="name" placeholder="Name" required />
+    <input type="email" [(ngModel)]="customer.email" name="email" placeholder="Email" required />
+    <input type="password" [(ngModel)]="customer.password" name="password" placeholder="Password" required />
+    <input type="text" [(ngModel)]="customer.mobileNumber" name="mobileNumber" placeholder="Mobile Number" required />
+    <button type="submit">Register</button>
+    <div *ngIf="success" style="color: green;">
+      {{ success }}
+    </div>
+    <p style="color:red;" *ngIf="error">{{ error }}</p>
+  </form>
+  
+  <div class="login-link">
+    Already have an account? <a routerLink="/customer/login">Login here</a>
+  </div>
+
+  <div *ngIf="otpSent">
+    <h3>Enter OTP sent to {{ customer.email }}</h3>
+    <input type="text" [(ngModel)]="otp" name="otp" placeholder="Enter OTP" required />
+    <button (click)="verifyOtp()">Verify OTP</button>
+  </div>
+  
+</div>

@@ -1,0 +1,80 @@
+<header class="dashboard-header">
+  <div class="logo">ClickShop</div>
+  <h2 class="page-title">Admin Dashboard</h2>
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      
+      <a routerLink="/admin/dashboard" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Menu</span>
+      </a>
+      <button (click)="goToAddProduct()"><span>➕ Add Products</span></button> 
+      <button (click)="goToViewProducts()"><span>📋 View Products</span></button> 
+      <button (click)="goToEditProducts()"><span>✏️ Edit Products</span></button> 
+      <button (click)="goToDeleteProducts()"><span>🗑️ Delete Products</span></button> 
+      <button (click)="goToViewOrders()"><span>🛒 View All orders</span></button> 
+      <button (click)="goToViewCustomers()"><span>👁️ View Customers</span></button> 
+      <button (click)="goToOrderStatus()"><span>📦 Order Update 🔄</span></button> 
+    </div>
+  </div>
+
+
+
+
+<div class="view-orders-container">
+
+    <!-- Back to Dashboard Button -->
+    <div class="top-bar">
+      <!-- <button routerLink="/admin/dashboard" class="back-btn">Back to Dashboard</button> -->
+      
+  <!-- <button (click)="exportToExcel()" class="export-btn">📁 Export</button> -->
+    </div>
+    <div class="export-options">
+      <button (click)="exportAllOrders()" class="export-btn">📁 Export All Orders</button>
+      <button (click)="exportLast7DaysOrders()" class="export-btn">🗓️ Export Last 7 Days</button>
+    </div>
+    
+    <h3>All Orders</h3>
+  
+    <div *ngIf="orders.length === 0" class="no-orders">
+      <p>No orders available.</p>
+    </div>
+  
+    <table *ngIf="orders.length > 0" class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Product ID</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th>Order Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerId }}</td>
+          <td>{{ order.productId }}</td>
+          <td>Rs. {{ order.totalAmount }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.orderDate | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  </div>
+  

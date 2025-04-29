@@ -1,0 +1,90 @@
+<!-- customer-dashboard.component.html -->
+
+<header>
+  <div class="logo">ClickShop</div>
+
+  <div class="nav-links">
+  </div>
+  <div class="user-welcome-header">
+    <div class="user-avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="user-info">
+      <p>Welcome, {{ name }}</p>
+
+    </div>
+  </div>
+
+
+  <div class="right-actions">
+    <a class="nav-item" (click)="goToOrders()" style="cursor: pointer;">📋 Orders</a>
+    <a class="nav-item" (click)="goToCart()" style="cursor: pointer;">🛒 Cart ({{ cartItems.length }})</a>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <a routerLink="/customer/dashboard" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Product Content -->
+  <div *ngIf="loading" class="loading-message">
+    <p>Loading product details...</p>
+  </div>
+
+  <div *ngIf="!loading && product" class="product-detail-container">
+    <div class="product-image">
+    <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
+    </div>
+    <div class="product-info">
+      <h2>{{ product.name }}</h2>
+      <div class="product-price">₹{{ product.price }}</div>
+      <p class="product-description">{{ product.description }}</p>
+      <div class="product-stock">
+        <i class="fas fa-cubes"></i>
+        <span *ngIf="product.stock > 0">{{ product.stock }} in stock</span>
+        <span *ngIf="product.stock === 0">Out of Stock</span>
+      </div>
+      <br>
+      
+      <button *ngIf="product.stock > 0" class="add-to-cart-btn" (click)="addToCart(product)">
+        Add to Cart
+      </button>
+    </div>
+    <div *ngIf="message" class="message">{{ message }}</div>
+  </div>
+
+  <div *ngIf="!loading && !product" class="no-product">
+    <p>No product found.</p>
+  </div>
+</div> <!-- ❗ Close the main container here -->
+
+<!-- ✅ Footer placed correctly -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <strong>ClickShop</strong> - Your one-stop shopping destination
+    </div>
+    <div class="footer-links">
+      
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 ClickShop. All rights reserved.
+  </div>
+</footer>

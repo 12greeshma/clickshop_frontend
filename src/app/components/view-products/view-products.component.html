@@ -1,0 +1,91 @@
+<header class="dashboard-header">
+  <div class="logo">ClickShop</div>
+  <h2 class="page-title">Admin Dashboard</h2>
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      
+      <a routerLink="/admin/dashboard" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Menu</span>
+      </a>
+      <button (click)="goToAddProduct()"><span>➕ Add Products</span></button> 
+      <button (click)="goToViewProducts()"><span>📋 View Products</span></button> 
+      <button (click)="goToEditProducts()"><span>✏️ Edit Products</span></button> 
+      <button (click)="goToDeleteProducts()"><span>🗑️ Delete Products</span></button> 
+      <button (click)="goToViewOrders()"><span>🛒 View All orders</span></button> 
+      <button (click)="goToViewCustomers()"><span>👁️ View Customers</span></button> 
+      <button (click)="goToOrderStatus()"><span>📦 Order Update 🔄</span></button> 
+    </div>
+  </div>
+
+
+
+<div class="view-products-container">
+  <button class="back-to-dashboard-btn" (click)="goToDashboard()">Back to Dashboard</button>
+  <h2>View Products</h2>
+
+  <!-- Search Inputs -->
+  <!-- Single Search Input -->
+<div class="search-filters">
+  <input 
+    type="text" 
+    placeholder="Search by name or price" 
+    [(ngModel)]="searchQuery" 
+    (input)="filterProducts()" 
+  />
+</div>
+
+
+  <div *ngIf="filteredProducts.length === 0" class="no-products">
+    <p>No products / Price found.</p>
+  </div>
+
+  <div *ngIf="filteredProducts.length > 0" class="product-list">
+    <div *ngFor="let product of filteredProducts" class="product-item"
+      [ngClass]="{
+        'out-of-stock': product.stock === 0,
+        'low-stock': product.stock > 0 && product.stock < 10
+      }">
+      <div class="product-info">
+        <p><strong>Name:</strong> {{ product.name }}</p>
+        <p><strong>Price:</strong> Rs. {{ product.price }}</p>
+        <p><strong>Stock:</strong> 
+          <span *ngIf="product.stock === 0">Out of Stock</span>
+          <span *ngIf="product.stock > 0">{{ product.stock }}</span>
+        
+        </p>
+        <p><strong>Description:</strong> {{ product.description }}</p>
+      </div>
+
+      <!-- Delete Button -->
+      <button (click)="deleteProduct(product.id)" class="delete-btn">Delete</button>
+
+      <!-- Edit Stock -->
+      <div class="edit-product">
+        <label for="stock-{{product.id}}" class="edit-label">Stock:</label>
+        <input
+          [(ngModel)]="product.stock"
+          type="number"
+          min="0"
+          placeholder="Enter new stock"
+          class="edit-stock-input"
+          id="stock-{{product.id}}"
+        />
+        <button (click)="editProduct(product.id, product.stock)" class="edit-btn">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

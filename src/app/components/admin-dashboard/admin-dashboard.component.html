@@ -1,0 +1,208 @@
+<header class="dashboard-header">
+  <div class="logo">ClickShop</div>
+  <h2 class="page-title">Admin Dashboard</h2>
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+      <div class="user-status">Admin</div>
+    </div>
+    
+    <nav class="sidebar-menu">
+      <a routerLink="/admin/dashboard" class="menu-item active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      
+      <div class="menu-category">Products</div>
+      <a (click)="goToAddProduct()" class="menu-item">
+        <i class="fas fa-plus-circle"></i>
+        <span>➕ Add Products</span>
+      </a>
+      <a (click)="goToViewProducts()" class="menu-item">
+        <i class="fas fa-list"></i>
+        <span>📋 View Products</span>
+      </a>
+      <a (click)="goToEditProducts()" class="menu-item">
+        <i class="fas fa-edit"></i>
+        <span>✏️ Edit Products</span>
+      </a>
+      <a (click)="goToDeleteProducts()" class="menu-item">
+        <i class="fas fa-trash-alt"></i>
+        <span>🗑️ Delete Products</span>
+      </a>
+      
+      <div class="menu-category">Orders & Customers</div>
+      <a (click)="goToViewOrders()" class="menu-item">
+        <i class="fas fa-shopping-cart"></i>
+        <span>📦 View All Orders</span>
+      </a>
+      <a (click)="goToViewCustomers()" class="menu-item">
+        <i class="fas fa-users"></i>
+        <span>👁️View Customers</span>
+      </a>
+      <a (click)="goToOrderStatus()" class="menu-item">
+        <i class="fas fa-truck"></i>
+        <span>📦 Order Updates 🔄</span>
+      </a>
+      
+      
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-header">
+      <h3>Dashboard Overview</h3>
+      <p>Welcome back! Here's a summary of your store performance.</p>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">Total Customers</div>
+          <div class="stat-progress">
+            <circle-progress 
+              [percent]="customerProgress"
+              [outerStrokeColor]="'#3b82f6'"
+              [innerStrokeColor]="'#dbeafe'"
+              [outerStrokeWidth]="10"
+              [innerStrokeWidth]="5"
+              [radius]="50"
+              [animation]="true"
+              [animationDuration]="300"
+              [showTitle]="false"
+              [showUnits]="false"
+              [showSubtitle]="false"
+              [showInnerStroke]="true">
+            </circle-progress>
+          </div>
+          <div class="stat-value">{{ totalCustomers }}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">Total Products</div>
+          <div class="stat-progress">
+            <circle-progress 
+              [percent]="productProgress"
+              [outerStrokeColor]="'#10b981'"
+              [innerStrokeColor]="'#d1fae5'"
+              [outerStrokeWidth]="10"
+              [innerStrokeWidth]="5"
+              [radius]="50"
+              [animation]="true"
+              [animationDuration]="300"
+              [showTitle]="false"
+              [showUnits]="false"
+              [showSubtitle]="false"
+              [showInnerStroke]="true">
+            </circle-progress>
+          </div>
+          <div class="stat-value">{{ totalProducts }}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon warning">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">Low Stock Products</div>
+          <div class="stat-progress">
+            <circle-progress 
+              [percent]="lowStockProgress"
+              [outerStrokeColor]="'#f59e0b'"
+              [innerStrokeColor]="'#fef3c7'"
+              [outerStrokeWidth]="10"
+              [innerStrokeWidth]="5"
+              [radius]="50"
+              [animation]="true"
+              [animationDuration]="300"
+              [showTitle]="false"
+              [showUnits]="false"
+              [showSubtitle]="false"
+              [showInnerStroke]="true">
+            </circle-progress>
+          </div>
+          <div class="stat-value">{{ lowStockProducts }}</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon success">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">Total Orders</div>
+          <div class="stat-progress">
+            <circle-progress 
+              [percent]="orderProgress"
+              [outerStrokeColor]="'#8b5cf6'"
+              [innerStrokeColor]="'#ede9fe'"
+              [outerStrokeWidth]="10"
+              [innerStrokeWidth]="5"
+              [radius]="50"
+              [animation]="true"
+              [animationDuration]="300"
+              [showTitle]="false"
+              [showUnits]="false"
+              [showSubtitle]="false"
+              [showInnerStroke]="true">
+            </circle-progress>
+          </div>
+          <div class="stat-value">{{ totalOrders }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="action-buttons">
+        <button class="action-btn" (click)="goToAddProduct()">
+          <i class="fas fa-plus"></i> Add New Product
+        </button>
+        <button class="action-btn" (click)="goToViewOrders()">
+          <i class="fas fa-eye"></i> View Recent Orders
+        </button>
+        <button class="action-btn" (click)="goToOrderStatus()">
+          <i class="fas fa-sync"></i> Update Order Status
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <strong>ClickShop</strong> - Admin Portal
+    </div>
+    <div class="footer-links">
+      <a routerLink="/about">About</a>
+      <a routerLink="/privacy">Privacy</a>
+      <a routerLink="/terms">Terms</a>
+      <a routerLink="/help">Help</a>
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 ClickShop. All rights reserved.
+  </div>
+</footer>

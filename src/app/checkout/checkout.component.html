@@ -1,0 +1,84 @@
+<header>
+  <a routerLink="/customer/dashboard" >
+    <div class="logo">ClickShop</div>
+   </a>
+  
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</header>
+<!-- customer-dashboard.component.html -->
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+      <!-- <h2>Welcome, {{ name }}</h2>
+      <p class="user-status">Customer</p> -->
+    </div>
+
+    <div class="sidebar-menu">
+      <a routerLink="/customer/dashboard" class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+      <button (click)="goToCart()">My Cart</button>
+
+      <!-- <button (click)="goToOrders()">My Orders</button> -->
+      <!-- <button (click)="logout()">Logout</button> -->
+
+    </div>
+  </div>
+
+
+  <div class="checkout-container">
+    <h2>Order Confirmation</h2>
+    
+    <div *ngIf="cartItems?.length; else emptyCart">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <!-- {{ item.productName }} - {{ item.quantity }} x {{ item.price }} = {{ item.quantity * item.price }} -->
+        {{ item.productName }} - {{ item.quantity }} x {{ item.price }} = 
+        {{ item.quantity * item.price + (item.price < 500 ? 50 : 0) }}
+        <span *ngIf="item.price < 500">(₹50 extra applied)</span>
+        
+      </div>
+    </div>
+    
+    <ng-template #emptyCart>
+      <div class="empty-cart">Your cart is currently empty</div>
+    </ng-template>
+    
+    <div class="total-amount" *ngIf="cartItems?.length">
+      <hr>
+
+    
+      <strong>Total: </strong>{{ totalAmount }}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+      <button class="close-btn" (click)="successMessage = ''">×</button>
+    </div>
+    
+    <button (click)="placeOrder()" *ngIf="cartItems?.length">Place Order</button>
+    
+    
+  </div>
+</div>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <strong>ClickShop</strong> - Your one-stop shopping destination
+        </div>
+        <div class="footer-links">
+          <a routerLink="/about">About Us</a>
+          <a routerLink="/privacy">Privacy Policy</a>
+          <a routerLink="/terms">Terms of Service</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 ClickShop. All rights reserved.
+      </div>
+    </footer>
+  

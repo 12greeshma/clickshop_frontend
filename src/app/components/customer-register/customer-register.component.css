@@ -1,0 +1,153 @@
+.customer-register-container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* Stack elements on mobile */
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+ 
+ .customer-register-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 15%;
+  background-color: #bba6e4;
+  z-index: 0;
+ }
+ 
+ .brand-logo {
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+ }
+ 
+ .brand-logo img {
+  max-height: 50px;
+ }
+ 
+ h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+ }
+ 
+ form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+ }
+ 
+ input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s;
+  width: 350px;
+ }
+ 
+ input:focus {
+  border-color: #d8aed5;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(216, 174, 213, 0.2);
+ }
+ 
+ button {
+  padding: 0.75rem 1rem;
+  background-color: #d8aed5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+  font-weight: 500;
+ }
+ 
+ button:hover {
+  background-color: #c69bc3;
+ }
+ 
+ .login-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+ }
+ 
+ .login-link a {
+  color: #d8aed5;
+  text-decoration: none;
+  font-weight: 500;
+ }
+ 
+ .login-link a:hover {
+  text-decoration: underline;
+ }
+ 
+ /* Registration decoration - shopping graphic */
+ .customer-register-container::after {
+  content: '';
+  position: absolute;
+  bottom: 2rem;
+  right: 5%;
+  width: 30%;
+  height: 60%;
+  /* background-image: url('../assets/images/shopping-register.jpg'); */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+ }
+ 
+ /* Responsive adjustments */
+@media (max-width: 768px) {
+  .customer-register-container {
+    padding: 1rem;
+    width: 100%; /* Ensure full width on smaller screens */
+    max-width: 1000px; /* Optional: keeps max width constraint */
+    margin: 0 auto; /* Center the container */
+  }
+
+  .customer-register-container::before {
+    display: none;
+  }
+
+  .customer-register-container::after {
+    display: none;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .login-link {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+}

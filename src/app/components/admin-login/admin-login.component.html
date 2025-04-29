@@ -1,0 +1,13 @@
+<div class="admin-login-container"style="background-image: url('admin1.jpg'); background-size: contain; background-repeat: no-repeat; background-position: 100%center;">
+  <div class="brand-logo">
+    <img src="clickshoplogo.jpg" alt="ClickShop">
+  </div>
+  
+  <h2>Admin Login</h2>
+  <form (ngSubmit)="login()">
+    <input [(ngModel)]="email" name="email" placeholder="Email" required />
+    <input [(ngModel)]="password" name="password" placeholder="Password" type="password" required />
+    <button type="submit">Login</button>
+    <p style="color:red;" *ngIf="error">{{ error }}</p>
+  </form>
+</div>

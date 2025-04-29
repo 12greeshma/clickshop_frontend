@@ -1,0 +1,134 @@
+<div class="about-us-container">
+    <!-- Header (reusing existing header structure) -->
+    <header>
+       <a routerLink="/customer/dashboard" >
+        <div class="logo">ClickShop</div>
+       </a>
+        <!-- <a routerLink="/dashboard" class="logo">ClickShop</a> -->
+
+        <div class="user-welcome-header">
+            <div class="user-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-info">
+                <p>Welcome, {{ name }}</p>
+            </div>
+        </div>
+
+        <!-- search -->
+       
+
+        <div class="right-actions">
+            <a class="nav-item" (click)="goToOrders()" style="cursor: pointer;">📋 Orders</a>
+            <a class="nav-item" (click)="goToCart()" style="cursor: pointer;">🛒Cart ({{ cartItems.length }})</a>
+            <a class="nav-item" (click)="aboutus()" style="cursor: pointer;">AboutUs</a>
+            <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+    </header>
+
+    
+
+    <!-- Our Story Section -->
+    <section class="about-section story-section">
+        <div class="about-container">
+            <div class="about-row">
+                <div class="about-col-text">
+                    <span class="sub-title">Our Story</span>
+                    <h2>Creating a world of effortless online shopping</h2>
+                    <p>ClickShop is a conceptual e-commerce platform developed with key functionalities of a modern online shopping experience including user authentication, product browsing, cart management, and order processing.</p>
+<p>The project is designed to simulate a real-world shopping application, showcasing the integration of front-end technologies like Angular with back-end services built using Spring Boot. It serves as a practical implementation of full-stack development principles and secure user interactions.</p>
+
+                </div>
+                <div class="about-col-image">
+                    <img src="aboutus1.gif" alt="ClickShop Team" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    <!-- Why Choose Us Section -->
+    <section class="about-section features-section light-bg">
+        <div class="about-container">
+            <div class="section-header text-center">
+                <span class="sub-title">Why Choose Us</span>
+                <h2>The ClickShop Difference</h2>
+                <p>What makes us stand out from other online marketplaces</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>We partner with reliable shipping services to ensure your orders arrive promptly and in perfect
+                        condition.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Shopping</h3>
+                    <p>Our platform uses advanced encryption and security measures to protect your personal and payment
+                        information.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>We work directly with manufacturers and suppliers to offer competitive prices without
+                        compromising on quality.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Easy Returns</h3>
+                    <p>Not satisfied with your purchase? Our hassle-free return policy ensures you shop with confidence.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our dedicated customer service team is always ready to assist you with any questions or concerns.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Rewards Program</h3>
+                    <p>Earn points with every purchase and redeem them for exclusive discounts and special offers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <strong>ClickShop</strong> - Your one-stop shopping destination
+            </div>
+           
+        </div>
+        <div class="copyright">
+            &copy; 2025 ClickShop. All rights reserved.
+        </div>
+    </footer>
+</div>

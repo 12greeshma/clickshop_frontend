@@ -1,0 +1,252 @@
+<header>
+  <a routerLink="/customer/dashboard" >
+    <div class="logo">ClickShop</div>
+   </a>
+
+  <div class="nav-links">
+  </div>
+  <div class="user-welcome-header">
+    <div class="user-avatar">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="user-info">
+      <p>Welcome, {{ name }}</p>
+    </div>
+  </div>
+
+  <!-- search -->
+  <div class="header-container">
+    <div class="search-wrapper">
+      <div class="search-container">
+        <input type="text" placeholder="Search products by name or price..." class="search-input"
+          (input)="searchProducts(); showSuggestions = true" (blur)="hideSuggestionsWithDelay()"
+          (focus)="showSuggestions = true" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()"
+          (keyup.enter)="searchProducts()" />
+        <button class="search-button" (click)="searchProducts()">
+          🔍 <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <!-- 🔽 Suggestions Dropdown -->
+      <div class="search-suggestions" *ngIf="showSuggestions && searchTerm && filteredProducts.length > 0">
+        <div class="suggestion-item" *ngFor="let product of filteredProducts.slice(0, 5)"
+          (mousedown)="viewProductDetails(product.id)">
+          {{ product.name }} - ${{ product.price }}
+        </div>
+      </div>
+    </div>
+    <!-- ❌ No Results -->
+    <div class="search-suggestions no-results" *ngIf="showSuggestions && searchTerm && filteredProducts.length === 0">
+      No products found for "{{ searchTerm }}"
+    </div>
+  </div>
+
+  <div class="right-actions">
+    <a class="nav-item" (click)="goToOrders()" style="cursor: pointer;">📋 Orders</a>
+    <a class="nav-item" (click)="goToCart()" style="cursor: pointer;">🛒Cart ({{ cartItems.length }})</a>
+    <a class="nav-item" (click)="aboutus()" style="cursor: pointer;">AboutUs</a>
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="image-slider">
+  <div class="slider">
+    <div><img src="s2.jpg" alt="Promotional banner 1" /></div>
+    <div><img src="s3.jpg" alt="Promotional banner 2" /></div>
+    <div><img src="s1.jpg" alt="Promotional banner 3" /></div>
+  </div>
+</div>
+
+
+
+
+<!-- Best Selling Products Section -->
+<section class="featured-products-section">
+  <div class="section-header">
+    <h2>Best Selling Products</h2>
+    <!-- <a href="#" class="view-all-link">View All</a> -->
+  </div>
+  <div class="best-selling-carousel">
+    <div class="product-slide" *ngFor="let product of bestSellingProducts">
+      <div class="product-card featured-card">
+        <div class="badge">Best Seller</div>
+        <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
+        <div class="product-details">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <div class="product-price">₹{{ product.price }}</div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button [disabled]="isInCart(product.id) || product.stock === 0" class="action-btn add-to-cart"
+            (click)="addToCart(product)">
+            {{ isInCart(product.id) ? 'In Cart' : 'Add to Cart' }}
+          </button>
+          <button class="action-btn view-details" (click)="viewProductDetails(product.id)">
+            View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Promotional Banners Section -->
+<section class="promo-banners-section">
+  <div class="promo-container">
+    <div class="promo-banner">
+      <img src="offer1.png" alt="Special Offers" />
+    </div>
+    <div class="promo-banner">
+      <img src="offer2.png" alt="New Arrivals" />
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Trending Products Section -->
+<section class="featured-products-section">
+  <div class="section-header">
+    <h2>Trending Products</h2>
+    <!-- <a href="#" class="view-all-link">View All</a> -->
+  </div>
+  <div class="trending-carousel">
+    <div class="product-slide" *ngFor="let product of trendingProducts">
+      <div class="product-card featured-card">
+        <div class="badge trending">Trending</div>
+        <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
+        <div class="product-details">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <div class="product-price">₹{{ product.price }}</div>
+          <div class="trending-info">
+            <i class="fas fa-fire"></i> Popular choice
+          </div>
+        </div>
+        <div class="product-actions">
+          <button [disabled]="isInCart(product.id) || product.stock === 0" class="action-btn add-to-cart"
+            (click)="addToCart(product)">
+            {{ isInCart(product.id) ? 'In Cart' : 'Add to Cart' }}
+          </button>
+          <button class="action-btn view-details" (click)="viewProductDetails(product.id)">
+            View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Product Catalog -->
+<div class="dashboard-container">
+  <div class="main-content">
+    <div class="content-header">
+      <h1>🛍️ Product Catalog</h1>
+    </div>
+
+    <div *ngIf="message" class="message-success">{{ message }}</div>
+
+    <!-- iterate over filteredProducts now -->
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of filteredProducts">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
+        <div class="product-details">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <div class="product-price">₹{{ product.price }}</div>
+          <div class="product-stock" [ngClass]="{'low-stock': product.stock < 5}">
+            <i class="fas fa-cubes"></i> {{ product.stock }} in stock
+          </div>
+          <p class="product-description">{{ product.description }}</p>
+        </div>
+        <button (click)="viewProductDetails(product.id)" class="view-details-btn">
+          View Details
+        </button>
+        <div class="product-actions">
+          <button [disabled]="isInCart(product.id) || product.stock === 0" class="action-btn add-to-cart"
+            (click)="addToCart(product)">
+            {{ isInCart(product.id) ? 'In Cart' : 'Add to Cart' }}
+          </button>
+          <button class="action-btn wishlist">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+    
+    <div *ngIf="searchTerm.trim() && filteredProducts.length === 0" class="no-results">
+      No products or price matching "{{ searchTerm }}" were found.
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Testimonial Section -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>What Our Customers Say</h2>
+      <p>We Love Good Compliments</p>
+    </div>
+
+    <div class="testimonial-carousel">
+      <div class="testimonial-slide" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-item">
+          <!-- <div class="testimonial-image">
+            <img [src]="testimonial.image" alt="Customer">
+          </div> -->
+          <div class="testimonial-content">
+            <div class="quote-icon">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="testimonial-text">{{ testimonial.quote }}</p>
+            <div class="testimonial-author">
+              <h4>{{ testimonial.name }}</h4>
+              <span>{{ testimonial.position }}</span>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <strong>ClickShop</strong> - Your one-stop shopping destination
+    </div>
+    <div class="footer-links">
+    </div>
+  </div>
+  <div class="copyright">
+    &copy; 2025 ClickShop. All rights reserved.
+  </div>
+</footer>

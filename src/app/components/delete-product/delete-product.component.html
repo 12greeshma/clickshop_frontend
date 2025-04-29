@@ -1,0 +1,22 @@
+<div class="delete-product-container">
+    <div class="delete-product-header">
+      <h2>Delete Product</h2>
+    </div>
+  
+    <div *ngIf="product" class="delete-product-details">
+      <p><strong>Product Name:</strong> {{ product.name }}</p>
+      <p><strong>Price:</strong> ${{ product.price }}</p>
+      <p><strong>Stock:</strong> {{ product.stock }}</p>
+      <p><strong>Description:</strong> {{ product.description }}</p>
+    </div>
+  
+    <div class="delete-actions">
+      <button (click)="deleteProduct()" class="delete-btn">Delete</button>
+      <button (click)="cancelDelete()" class="cancel-btn">Cancel</button>
+    </div>
+  
+    <div *ngIf="isDeleted" class="confirmation-message">
+      <p>Product has been deleted successfully!</p>
+    </div>
+  </div>
+  

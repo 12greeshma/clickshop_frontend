@@ -1,0 +1,101 @@
+<header class="dashboard-header">
+  <div class="logo">ClickShop</div>
+  <h2 class="page-title">Admin Dashboard</h2>
+  <button class="logout-btn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</header>
+
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="user-welcome">
+      <div class="user-avatar">
+        <i class="fas fa-user-circle fa-3x"></i>
+      </div>
+    </div>
+    <div class="sidebar-menu">
+      <a routerLink="/admin/dashboard" class="menu-item">
+        <i class="fas fa-home"></i>
+        <span>Menu</span>
+      </a>
+      <button (click)="goToAddProduct()" class="menu-item active"><span>➕ Add Products</span></button>
+      <button (click)="goToViewProducts()"><span>📋 View Products</span></button>
+      <button (click)="goToEditProducts()"><span>✏️ Edit Products</span></button>
+      <button (click)="goToDeleteProducts()"><span>🗑️ Delete Products</span></button>
+      <button (click)="goToViewOrders()"><span>🛒 View All orders</span></button>
+      <button (click)="goToViewCustomers()"><span>👁️ View Customers</span></button> 
+      <button (click)="goToOrderStatus()"><span>📦 Order Update 🔄</span></button> 
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <h2 class="page-title">Details</h2>
+    
+    <form (ngSubmit)="addProduct()" class="product-form">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input 
+          type="text" 
+          id="productName" 
+          [(ngModel)]="product.name" 
+          name="name" 
+          required
+          placeholder="Enter product name">
+      </div>
+      
+      <div class="form-group">
+        <label for="productPrice">Price (Rs)</label>
+        <input 
+          type="number" 
+          id="productPrice" 
+          [(ngModel)]="product.price" 
+          name="price" 
+          required
+          step="0.01"
+          min="0"
+          placeholder="0.00">
+      </div>
+      
+      <div class="form-group">
+        <label for="productStock">Stock</label>
+        <input 
+          type="number" 
+          id="productStock" 
+          [(ngModel)]="product.stock" 
+          name="stock" 
+          required
+          min="0"
+          placeholder="0">
+      </div>
+      
+      <div class="form-group">
+        <label for="productDescription">Description</label>
+        <textarea 
+          id="productDescription" 
+          [(ngModel)]="product.description" 
+          name="description" 
+          required
+          placeholder="Enter product description"></textarea>
+      </div>
+      
+      <!-- for image url -->
+      <div class="form-group">
+        <label for="productImageUrl">Image URL</label>
+        <input 
+          type="text" 
+          id="productImageUrl" 
+          [(ngModel)]="product.imageUrl" 
+          name="imageUrl" 
+          required
+          placeholder="Enter image URL (e.g. https://...)">
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">Add Product</button>
+        <button type="button" class="back-btn" (click)="goToDashboard()">Back to Dashboard</button>
+      </div>
+    </form>
+  </div>
+</div>
